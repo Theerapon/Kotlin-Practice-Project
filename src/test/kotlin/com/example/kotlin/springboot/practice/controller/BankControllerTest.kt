@@ -36,7 +36,7 @@ internal class BankControllerTest @Autowired constructor(
                 .andExpect {
                     status { isOk() }
                     content { contentType(MediaType.APPLICATION_JSON) }
-                    jsonPath("$[0].accountNumber"){
+                    jsonPath("$[0].account_number"){
                         value("0001")
                     }
                 }
@@ -58,7 +58,7 @@ internal class BankControllerTest @Autowired constructor(
                     status {isOk()}
                     content { contentType(MediaType.APPLICATION_JSON) }
                     jsonPath("$.trust"){value(("0.1"))}
-                    jsonPath("$.transactionFee"){value(("1"))}
+                    jsonPath("$.default_transaction_fee"){value(("1"))}
                 }
         }
 
@@ -97,9 +97,9 @@ internal class BankControllerTest @Autowired constructor(
                 .andExpect {
                     status { isCreated() }
                     content { contentType(MediaType.APPLICATION_JSON) }
-                    jsonPath("$.accountNumber") {value("acc123")}
+                    jsonPath("$.account_number") {value("acc123")}
                     jsonPath("$.trust") {value("23.1")}
-                    jsonPath("$.transactionFee") {value("3")}
+                    jsonPath("$.default_transaction_fee") {value("3")}
                 }
 
             mockMvc.get("$baseUrl/${newBank.accountNumber}")
