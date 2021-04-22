@@ -3,7 +3,7 @@ package com.example.kotlin.springboot.practice.datasource.mock
 import com.example.kotlin.springboot.practice.datasource.BankDataSource
 import com.example.kotlin.springboot.practice.model.Bank
 import org.springframework.stereotype.Repository
-import java.lang.IllegalArgumentException
+import kotlin.IllegalArgumentException
 
 @Repository
 class MockBankDataSource : BankDataSource{
@@ -30,5 +30,15 @@ class MockBankDataSource : BankDataSource{
         banks.add(bank)
 
         return bank
+    }
+
+    override fun updateBank(bank: Bank): Bank {
+        val currentBank = banks.firstOrNull{it.accountNumber == bank.accountNumber}
+            ?: throw NoSuchElementException("Could not find a bank with account number ${bank.accountNumber}")
+
+        banks.remove(currentBank)
+        banks.add(bank)
+
+        return  bank;
     }
 }
